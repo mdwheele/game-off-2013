@@ -1,34 +1,28 @@
 package com.mdwheele.voodooboy;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mdwheele.voodooboy.screens.RedScreen;
 
-public class VoodooBoyGame implements ApplicationListener {
+public class VoodooBoyGame extends Game {
+
+	SpriteBatch batch;
+	BitmapFont font;
 	
-	@Override
-	public void create() {	
+	public void create() {
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		
+		setScreen(new RedScreen(this));
 	}
 
-	@Override
+	public void render() {
+		super.render();
+	}
+	
 	public void dispose() {
+		
 	}
-
-	@Override
-	public void render() {		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-	}
+	
 }
