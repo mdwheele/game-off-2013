@@ -56,6 +56,7 @@ public class DebugMapScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
+		map.dispose();
 	}
 
 }

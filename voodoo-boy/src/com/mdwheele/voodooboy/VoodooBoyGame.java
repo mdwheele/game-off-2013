@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mdwheele.voodooboy.screens.debug.DebugBox2dScreen;
+import com.mdwheele.voodooboy.screens.debug.DebugMapPhysicsScreen;
 import com.mdwheele.voodooboy.screens.debug.DebugMapScreen;
 
 public class VoodooBoyGame extends Game {
@@ -26,7 +27,7 @@ public class VoodooBoyGame extends Game {
 	public void create() {		
 		batch = new SpriteBatch();
 		
-		setScreen(new DebugBox2dScreen(this));
+		setScreen(new DebugMapPhysicsScreen(this));
 	}
 
 	public void render() {

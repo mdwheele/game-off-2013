@@ -2,40 +2,57 @@ package com.mdwheele.voodooboy.screens.debug;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.mdwheele.voodooboy.VoodooBoyGame;
-import com.mdwheele.voodooboy.screens.AbstractScreen;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.mdwheele.voodooboy.VoodooBoyGame;
+import com.mdwheele.voodooboy.physics.LevelLoader;
+import com.mdwheele.voodooboy.screens.AbstractScreen;
 
-public class DebugBox2dScreen extends AbstractScreen {
-		
-	/* Box2d World */
+public class DebugMapPhysicsScreen extends AbstractScreen {
+
+	/* Box2d world and renderer */
 	World world;
+	Box2DDebugRenderer physicsRenderer;
 	
-	/* Scaling factors */
-	static final float WORLD_TO_BOX = 0.01f;
-	static final float BOX_TO_WORLD = 100f;
+	/* Tiled map and renderer */
+	TiledMap map;
+	OrthogonalTiledMapRenderer mapRenderer;
+	
+	/* Level Loader */
+	LevelLoader levelLoader;
 	
 	/* Maximum number of balls */
-	static final int BALL_COUNT = 100;
+	static final int BALL_COUNT = 250;
 	
-	/**
-	 * Box2d Debug Renderer
-	 * 
-	 * Draws shapes and graphics for collisions and other things Box2d related.
-	 */
-	Box2DDebugRenderer debugRenderer;
-	
-	public DebugBox2dScreen(final VoodooBoyGame game) {
+	public DebugMapPhysicsScreen(final VoodooBoyGame game) {
 		super(game);
 		
 		/* Instantiate Box2d physics world and debug renderer. */
 		world = new World(new Vector2(0, -10), true);
-		debugRenderer = new Box2DDebugRenderer();
+		physicsRenderer = new Box2DDebugRenderer();
+			
+		/* Load map */
+		map = new TmxMapLoader().load("maps/testmap.tmx");
+		mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 16f);
 		
-		/* Create the floor! */
-		createFloor();
+		/* Populate physics world with data from map file. */
+		levelLoader = new LevelLoader(map, world, 1 / 16f);		
+		levelLoader.createPhysics();
 	}
 	
 	@Override
@@ -46,9 +63,12 @@ public class DebugBox2dScreen extends AbstractScreen {
 		
 		/* Add ball to random x location in air */
 		if(world.getBodyCount() < BALL_COUNT) 
-			createBall((float)(new Random()).nextInt(game.width));
+			createBall((float)(new Random()).nextInt(320));
 		
-		debugRenderer.render(world, camera.combined);
+		mapRenderer.setView(this.camera);
+		mapRenderer.render();
+		
+		physicsRenderer.render(world, camera.combined);
 	}
 
 	@Override
@@ -76,8 +96,9 @@ public class DebugBox2dScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
+		map.dispose();
 	}
-	
+
 	private void createBall(float x) {
 		// First we create a body definition
 		BodyDef bodyDef = new BodyDef();
@@ -86,14 +107,14 @@ public class DebugBox2dScreen extends AbstractScreen {
 		bodyDef.type = BodyType.DynamicBody;
 		
 		// Set our body's starting position in the world
-		bodyDef.position.set(x * WORLD_TO_BOX, 1000 * WORLD_TO_BOX);
+		bodyDef.position.set(x * 1 / 16f, 500 * 1 / 16f);
 
 		// Create our body in the world using our body definition
 		Body body = world.createBody(bodyDef);
 
 		// Create a circle shape and set its radius to 6
 		CircleShape circle = new CircleShape();
-		circle.setRadius(16 * WORLD_TO_BOX);
+		circle.setRadius(2 * 1 / 16f);
 
 		// Create a fixture definition to apply our shape to
 		FixtureDef fixtureDef = new FixtureDef();
@@ -110,28 +131,4 @@ public class DebugBox2dScreen extends AbstractScreen {
 		circle.dispose();
 	}
 	
-	private void createFloor() {
-		// Create our body definition
-		BodyDef groundBodyDef =new BodyDef();  
-		
-		// Set its world position		
-		groundBodyDef.position.set(new Vector2(0, 32 * WORLD_TO_BOX));  
-
-		// Create a body from the defintion and add it to the world
-		Body groundBody = world.createBody(groundBodyDef);  
-
-		// Create a polygon shape
-		PolygonShape groundBox = new PolygonShape();  
-		
-		// Set the polygon shape as a box which is twice the size of our view port and 20 high
-		// (setAsBox takes half-width and half-height as arguments)
-		groundBox.setAsBox(camera.viewportWidth, 16 * WORLD_TO_BOX);
-		
-		// Create a fixture from our polygon shape and add it to our ground body  
-		groundBody.createFixture(groundBox, 0.0f); 
-		
-		// Clean up after ourselves
-		groundBox.dispose();
-	}
-
 }
