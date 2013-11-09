@@ -9,9 +9,10 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "voodoo-boy";
 		cfg.useGL20 = false;
-		cfg.width = 800;
-		cfg.height = 600;
-		
-		new LwjglApplication(new VoodooBoyGame(), cfg);
+		cfg.width = 1280;
+		cfg.height = 720;
+		cfg.resizable = true;
+			
+		new LwjglApplication(new VoodooBoyGame(cfg.width, cfg.height), cfg);
 	}
 }

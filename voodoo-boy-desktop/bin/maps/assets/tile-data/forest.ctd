@@ -1,0 +1,72 @@
+# this file is a mapping of upper/lower tileset layers to their corresponding collision layer values
+# e.g., 8 L 1 means for every lower tile with an ID 8, we assign the collision layer to 1.
+
+# value 1 = ground
+
+# dirt platforms [squared]
+1 L 1
+2 L 1
+3 L 1
+17 L 1
+18 L 1
+19 L 1
+33 L 1
+35 L 1
+
+# dirt corners
+67 L 1
+68 L 1
+83 L 1
+84 L 1
+
+123 L 1
+124 L 1
+139 L 1
+140 L 1
+
+99 L 1
+100 L 1
+101 L 1
+96 L 1
+97 L 1
+112 L 1
+113 L 1
+
+# half platform
+49 L 10
+50 L 10
+51 L 10
+
+# bridge fullthing
+52 L 10
+69 L 10
+70 L 10
+71 L 10
+72 L 10
+73 L 10
+74 L 10
+75 L 10
+
+# special slanted tiles 
+53 L 2
+54 L 3
+55 L 4
+56 L 5
+57 L 6
+58 L 7
+59 L 8
+
+# bridge of rocks
+76 U 1
+77 U 1
+78 U 1
+
+# water
+80 U 20
+81 U 20
+64 U 20
+65 U 20
+66 U 20
+
+# "ice" for testing
+77 U 21

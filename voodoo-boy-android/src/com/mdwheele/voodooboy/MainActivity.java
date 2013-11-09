@@ -14,6 +14,6 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new VoodooBoyGame(), cfg);
+        initialize(new VoodooBoyGame(800, 600), cfg);
     }
 }

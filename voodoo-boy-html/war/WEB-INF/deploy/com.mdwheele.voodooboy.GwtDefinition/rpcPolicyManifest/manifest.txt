@@ -1,0 +1,2 @@
+# Module com.mdwheele.voodooboy.GwtDefinition
+# RPC service class, partial path of RPC policy file

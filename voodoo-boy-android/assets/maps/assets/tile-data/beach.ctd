@@ -1,0 +1,104 @@
+# this file is a mapping of upper/lower tileset layers to their corresponding collision layer values
+# e.g., 8 L 1 means for every lower tile with an ID 8, we assign the collision layer to 1.
+
+# value 1 = ground
+
+# dirt platforms [squared]
+1 L 1
+24 L 1
+25 L 1
+29 L 1
+11 L 1
+
+
+# new edge tiles
+68 L 1
+69 L 1
+70 L 1
+84 L 1
+85 L 1
+85 U 1
+86 L 1
+100 L 1
+101 L 1
+102 L 1
+89 L 1
+90 L 1
+105 L 1
+106 L 1
+116 L 1
+117 L 1
+118 L 1
+132 L 1
+133 L 1
+134 L 1
+148 L 1
+149 L 1
+150 L 1
+
+# half platform
+26 L 10
+27 L 10
+28 L 10
+
+# special slanted tiles 
+17 U 14
+18 U 15
+19 U 16
+33 U 14
+34 U 15
+35 U 16
+49 U 14
+50 U 15
+51 U 16
+
+#all the slants! with no water
+56 L 14
+57 L 15
+58 L 16
+59 L 11
+60 L 12
+61 L 13
+54 L 4
+55 L 5
+52 L 2
+53 L 3
+
+56 U 14
+57 U 15
+58 U 16
+59 U 11
+60 U 12
+61 U 13
+54 U 4
+55 U 5
+52 U 2
+53 U 3
+
+# half height
+9 L 8
+10 L 5
+12 L 2
+
+# 45 degrees
+23 L 7
+30 L 6
+8 L 17
+13 L 18
+73 L 7
+74 L 6
+
+# water
+#16 U 20
+#32 U 20
+#48 U 20
+#64 U 20
+
+80 U 1
+96 U 1
+112 U 1
+128 U 1
+
+# x blocks the spot
+255 L 1
+255 U 1

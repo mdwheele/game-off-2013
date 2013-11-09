@@ -1,38 +1,39 @@
 package com.mdwheele.voodooboy;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mdwheele.voodooboy.screens.RedScreen;
+import com.mdwheele.voodooboy.screens.debug.DebugBox2dScreen;
+import com.mdwheele.voodooboy.screens.debug.DebugMapScreen;
 
 public class VoodooBoyGame extends Game {
-
-	static String LOG = "VoodooBoyGame";
 	
-	SpriteBatch batch;
-	BitmapFont font;
+	/* Window dimensions */
+	public int width;
+	public int height;
+	
+	/* Shared SpriteBatch */
+	private SpriteBatch batch;
+	
+	/* FPS Debug Logger */
 	FPSLogger fpsLogger;
 	
-	public void create() {
-		Gdx.app.log(VoodooBoyGame.LOG, "Creating game...");
-		
+	public VoodooBoyGame(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+	
+	public void create() {		
 		batch = new SpriteBatch();
-		font = new BitmapFont();
-		fpsLogger = new FPSLogger();
 		
-		setScreen(new RedScreen(this));
+		setScreen(new DebugBox2dScreen(this));
 	}
 
 	public void render() {
 		super.render();
-		
-		fpsLogger.log();
 	}
 	
 	public void dispose() {
-		
-	}
-	
+		batch.dispose();
+	}	
 }
