@@ -1,22 +1,22 @@
 package com.mdwheele.voodooboy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mdwheele.voodooboy.VoodooBoyGame;
 
 public abstract class AbstractScreen implements Screen {
 
 	protected final VoodooBoyGame game;	
 	protected OrthographicCamera camera;
-	
+	protected SpriteBatch batch;
 	
 	public AbstractScreen(final VoodooBoyGame game) {
 		this.game = game;
 		camera = new OrthographicCamera(game.width, game.height);
-		
+		batch = new SpriteBatch();
 	}
 	
 	@Override

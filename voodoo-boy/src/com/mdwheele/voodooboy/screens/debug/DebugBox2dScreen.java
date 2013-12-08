@@ -103,7 +103,7 @@ public class DebugBox2dScreen extends AbstractScreen {
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 
 		// Create our fixture and attach it to the body
-		Fixture fixture = body.createFixture(fixtureDef);
+		body.createFixture(fixtureDef);
 
 		// Remember to dispose of any shapes after you're done with them!
 		// BodyDef and FixtureDef don't need disposing, but shapes do.

@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="16" height="8" tilewidth="16" tileheight="16">
- <tileset firstgid="1" name="Forest" tilewidth="16" tileheight="16">
-  <image source="assets/tiles/forest.png" width="256" height="256"/>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Outdoor" tilewidth="32" tileheight="32">
+  <image source="assets/tilesets/outdoor.png" width="1024" height="2048"/>
  </tileset>
- <layer name="Layer0" width="16" height="8">
+ <layer name="Tile Layer 1" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYIAASSCWYiAPGAGxMRCb4JDnB2IBEsxDVy8PxAok6EdXT8h9yACb2tNAfAaIz5LgBmRwG4jvAPFdLHLSQCxDQP9rIH4DxG8ZMOOJCYiZycQsQAwATfALEQ==
+   eJxjZGBgYBzFo3gUj+IhgAHGRgEt
   </data>
  </layer>
- <objectgroup name="physics" width="16" height="8">
-  <object x="17" y="17" width="47" height="14"/>
-  <object x="65" y="65" width="46" height="13"/>
-  <object x="145" y="49" width="47" height="15"/>
-  <object x="151" y="96" width="32" height="15"/>
-  <object x="89" y="65">
-   <polyline points="0,0 5,-4 5,-12 -4,-18 0,-26 4,-29 13,-28 18,-22 18,-16 16,-13 10,-10 10,-5 13,0"/>
-  </object>
-  <object x="153" y="49">
-   <polyline points="0,0 5,-4 5,-12 -4,-18 0,-26 4,-29 13,-28 18,-22 18,-16 16,-13 10,-10 10,-5 13,0"/>
-  </object>
-  <object x="-2" y="0">
-   <polyline points="0,0 3,113 258,112 262,0"/>
-  </object>
- </objectgroup>
 </map>

@@ -2,11 +2,7 @@ package com.mdwheele.voodooboy.screens.debug;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -15,12 +11,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.mdwheele.voodooboy.LevelLoader;
 import com.mdwheele.voodooboy.VoodooBoyGame;
-import com.mdwheele.voodooboy.physics.LevelLoader;
 import com.mdwheele.voodooboy.screens.AbstractScreen;
 
 public class DebugMapPhysicsScreen extends AbstractScreen {
@@ -36,6 +31,8 @@ public class DebugMapPhysicsScreen extends AbstractScreen {
 	/* Level Loader */
 	LevelLoader levelLoader;
 	
+	BitmapFont font;
+	
 	/* Maximum number of balls */
 	static final int BALL_COUNT = 250;
 	
@@ -45,10 +42,12 @@ public class DebugMapPhysicsScreen extends AbstractScreen {
 		/* Instantiate Box2d physics world and debug renderer. */
 		world = new World(new Vector2(0, -10), true);
 		physicsRenderer = new Box2DDebugRenderer();
-			
+					
 		/* Load map */
 		map = new TmxMapLoader().load("maps/testmap.tmx");
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 16f);
+		
+		font = new BitmapFont();
 		
 		/* Populate physics world with data from map file. */
 		levelLoader = new LevelLoader(map, world, 1 / 16f);		
@@ -59,7 +58,7 @@ public class DebugMapPhysicsScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		
-		world.step(1/60f, 6, 2);
+		world.step(1/60f, 10, 2);
 		
 		/* Add ball to random x location in air */
 		if(world.getBodyCount() < BALL_COUNT) 
@@ -69,6 +68,10 @@ public class DebugMapPhysicsScreen extends AbstractScreen {
 		mapRenderer.render();
 		
 		physicsRenderer.render(world, camera.combined);
+		
+		batch.begin();
+		font.draw(batch, "Body Count: " + world.getBodyCount(), 16, 700);
+		batch.end();
 	}
 
 	@Override
@@ -124,7 +127,7 @@ public class DebugMapPhysicsScreen extends AbstractScreen {
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 
 		// Create our fixture and attach it to the body
-		Fixture fixture = body.createFixture(fixtureDef);
+		body.createFixture(fixtureDef);
 
 		// Remember to dispose of any shapes after you're done with them!
 		// BodyDef and FixtureDef don't need disposing, but shapes do.
